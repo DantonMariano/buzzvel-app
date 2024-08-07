@@ -4,8 +4,21 @@
 Hi and welcome to my Buzzvel Application project! a project that allow users to perform Create, Read, Update and Delete operations on holiday plans, and also exports to PDF.
 
 
+# Get Started
+
+Step-by-step guide on how to start the project
+
+1. run `git clone git@github.com:DantonMariano/buzzvel-app.git`
+2. after that ensure you are in the right directory using `cd buzzvel-app`
+3. run `composer install`
+4. copy the contents of .env.example to .env and do the changes according to your necessities
+5. run `php artisan key:generate`
+6. run `php artisan migrate`
+6. after that serve the program using `php artisan serve`
+7. enjoy! 
 
 # Endpoints
+Down below you will find a list containing all the endpoints for the API.
 ## GET /holidays
 returns a list with all holidays for the authenticated user.
 
