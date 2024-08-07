@@ -14,6 +14,7 @@
       Title: {{$holiday['title']}} <br>
       Description: {{$holiday['description']}} <br>
       Date: {{$holiday['date']}} <br>
+      Location: {{$holiday['location']}} <br>
       @if ($holiday['participants'])
           Participants: {{$holiday['participants']}} <br>
       @endif

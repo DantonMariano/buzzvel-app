@@ -32,10 +32,12 @@ class HolidayController extends Controller
         $data = $request->validate([
             "title" => ["required", "string"],
             "description" => ["required", "string"],
+            "location" => ["required", "string"],
             "date" => ["required", "date"],
             "participants" => "integer",
-            "user_id" => ['required', "exists:users,id"]
         ]);
+
+        $data['user_id'] = $request->user()->id;
 
         return Holiday::create($data);
     }
@@ -43,9 +45,12 @@ class HolidayController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        $holiday = Holiday::find($id);
+        $holiday = Holiday::where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->first();
+
         if (!$holiday) {
             return response()->json(['message' => 'Holiday not found.'], 404);
         }
@@ -63,11 +68,10 @@ class HolidayController extends Controller
             "description" => ["string"],
             "date" => ["date"],
             "participants" => "integer",
-            "user_id" => ['required', "exists:users,id"]
         ]);
 
         $holiday = Holiday::where('id', $id)
-            ->where('user_id', $data['user_id'])
+            ->where('user_id', $request->user()->id)
             ->first();
 
         if (!$holiday) {
@@ -84,12 +88,8 @@ class HolidayController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
-        $data = $request->validate([
-            "user_id" => ['required', "exists:users,id"]
-        ]);
-
         $holiday = Holiday::where('id',$id)
-            ->where('user_id', $data['user_id'])
+            ->where('user_id', $request->user()->id)
             ->first();
 
         if (!$holiday) {

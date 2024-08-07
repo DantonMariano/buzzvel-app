@@ -14,6 +14,7 @@ class Holiday extends Model
         "description",
         "date",
         "participants",
+        "location",
         "user_id"
     ];
 

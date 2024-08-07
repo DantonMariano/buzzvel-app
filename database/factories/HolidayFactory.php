@@ -20,6 +20,7 @@ class HolidayFactory extends Factory
             "title" => $this->faker->sentence,
             "description" => $this->faker->paragraph,
             "date" => $this->faker->date,
+            "location" => $this->faker->sentence,
             "participants" => $this->faker->numberBetween(1, 5)
         ];
     }
