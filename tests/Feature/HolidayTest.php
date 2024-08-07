@@ -27,6 +27,7 @@ class HolidayTest extends TestCase
             'description' => 'Test Holiday Content',
             'date' => '2024-07-07',
             'participants' => '2',
+            'user_id' => $user->id
         ]);
 
         $response->assertStatus(201);
@@ -56,14 +57,16 @@ class HolidayTest extends TestCase
         
         Sanctum::actingAs($user);
         
-        $holiday = Holiday::factory()->create();
+        $holiday = Holiday::factory()->create([
+            "user_id" => $user->id
+        ]);
 
         $this->assertDatabaseHas('holidays', [
             'id' => $holiday->id,
             'title' => $holiday->title,
         ]);
 
-        $response = $this->delete('/api/holidays/' . $holiday->id);
+        $response = $this->delete('/api/holidays/' . $holiday->id, ["user_id" => $user->id]);
 
         $response->assertStatus(200);
 
@@ -79,7 +82,8 @@ class HolidayTest extends TestCase
         
         $holiday = Holiday::factory()->create([
             'title' => "test title",
-            "description" => "test description"
+            "description" => "test description",
+            "user_id" => $user->id
         ]);
 
         $this->assertDatabaseHas('holidays', [
@@ -90,6 +94,7 @@ class HolidayTest extends TestCase
         $updatedAttributes = [
             'title' => 'Updated Title',
             'description' => 'Updated Description',
+            'user_id' => $user->id
         ];
         
         $response = $this->put('/api/holidays/' . $holiday->id, $updatedAttributes);

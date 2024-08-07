@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware("auth:sanctum")->group(function(){
     Route::resource('holidays', HolidayController::class);
-    Route::get('download', [HolidayController::class, 'downloadPdf']);
+    Route::get('download', [HolidayController::class, 'generatePdf']);
 });
