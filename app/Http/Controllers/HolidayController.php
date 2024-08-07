@@ -49,9 +49,9 @@ class HolidayController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->validate([
-            "title" => ["required", "string"],
-            "description" => ["required", "string"],
-            "date" => ["required", "date"],
+            "title" => ["string"],
+            "description" => ["string"],
+            "date" => ["date"],
             "participants" => "integer"
         ]);
 
